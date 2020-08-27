@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Entry;
 class HomeController extends Controller
 {
     /**
@@ -23,6 +23,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        //al iniciar sesion mostramos solo las etnradas del usuario en home
+        $entries = Entry::where('user_id', auth()->id())->get();
+        return view('home', compact('entries'));
     }
 }
